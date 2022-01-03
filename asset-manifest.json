@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/shower-thoughts/static/css/main.8026392f.css",
+    "main.js": "/shower-thoughts/static/js/main.ba5bb8fc.js",
+    "static/js/787.2a2ac584.chunk.js": "/shower-thoughts/static/js/787.2a2ac584.chunk.js",
+    "static/media/button.png": "/shower-thoughts/static/media/button.ab97ccc6873d76dd2e29.png",
+    "static/media/logo.png": "/shower-thoughts/static/media/logo.ea5e40b2fa94691b92b1.png",
+    "index.html": "/shower-thoughts/index.html",
+    "main.8026392f.css.map": "/shower-thoughts/static/css/main.8026392f.css.map",
+    "main.ba5bb8fc.js.map": "/shower-thoughts/static/js/main.ba5bb8fc.js.map",
+    "787.2a2ac584.chunk.js.map": "/shower-thoughts/static/js/787.2a2ac584.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8026392f.css",
+    "static/js/main.ba5bb8fc.js"
+  ]
+}
