@@ -3,17 +3,7 @@ import logo from './logo.png';
 import button from './button.png';
 import './App.css';
 
-const QUOTE = "We laugh at dogs getting excited when they hear a bark on TV, but if TV was a nonstop stream of unintelligible noises and then someone suddenly spoke to you in your language, you'd be pretty startled too."
-const AUTHOR = "u/Biles"
-
-const API_ENDPOINT = "https://www.reddit.com/r/Showerthoughts.json?limit=100";
-
-// const thoughts = fetch(API_ENDPOINT)
-//   .then(response => response.json())
-//   .then(data => {
-//     return data.data.children;
-//   })
-//   .catch(error => console.log(error));
+const API_ENDPOINT = "https://www.reddit.com/r/Showerthoughts.json";
 
 // Fisher-Yates shuffle algorithm to "shuffle" an array.
 function shuffle(array) {
@@ -38,17 +28,27 @@ function App() {
 
   const [postNum, setPostNum] = React.useState(0);
   const [thoughts, setThoughts] = React.useState([]);
+  const [lastThought, setLastThought] = React.useState("");
+  const [endOfPage, setEndOfPage] = React.useState(false);
   
   const [isLoading, setIsLoading] = React.useState(true);
   const [isError, setIsError] = React.useState(false)
 
   React.useEffect(() => {
-    fetch(API_ENDPOINT)
+    setIsLoading(true);
+    setPostNum(0);
+    const ENDPOINT = lastThought ? `${API_ENDPOINT}?after=${lastThought}` : API_ENDPOINT;
+    console.log(ENDPOINT);
+    fetch(ENDPOINT)
       .then(response => response.json())
       .then(data => {
+        console.log(data);
         console.log(data.data.children);
+        console.log(data.data.after);
+        setLastThought(data.data.after);
         setThoughts(shuffle(data.data.children));
         setIsLoading(false);
+        setEndOfPage(false);
       })
       .catch(error => {
         console.log(error);
@@ -56,9 +56,37 @@ function App() {
       })
   }, []);
 
+  React.useEffect(() => {
+    if (endOfPage == true) {
+      setIsLoading(true);
+      setPostNum(0);
+      const ENDPOINT = lastThought ? `${API_ENDPOINT}?after=${lastThought}` : API_ENDPOINT;
+      console.log(ENDPOINT);
+      fetch(ENDPOINT)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          console.log(data.data.children);
+          console.log(data.data.after);
+          setLastThought(data.data.after);
+          setThoughts(shuffle(data.data.children));
+          setIsLoading(false);
+          setEndOfPage(false);
+        })
+        .catch(error => {
+          console.log(error);
+          setIsError(true);
+        })
+    }
+  }, [endOfPage]);
+
   function handleButtonClick() {
     console.log("button pressed");
-    setPostNum(postNum+1);
+    if ((postNum+1) < thoughts.length) {
+      setPostNum(postNum+1);
+    } else {
+      setEndOfPage(true);
+    }
   }
   
   return (
@@ -90,7 +118,7 @@ function App() {
 const Card = ({ quote, url }) => {
   return (
     <div className="card">
-      <a className="quote" href={url}>{quote}</a>
+      <a className="quote" href={url} target="_blank">{quote}</a>
     </div>
   )
 }

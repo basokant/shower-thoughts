@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #EFFDFF;
 }
 
 .App-logo {
@@ -17,7 +18,7 @@
 }
 
 .App-header {
-  background-color: #F0FDFF;
+  background-color: #EFFDFF;
   min-height: 100vmin;
   display: flex;
   flex-direction: column;
@@ -83,7 +84,7 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #236A74;
+  background: #D4FAFF;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
