@@ -3,6 +3,8 @@ import logo from './logo.png';
 import button from './button.png';
 import './App.css';
 
+import Fade from 'react-reveal/Fade'
+
 const API_ENDPOINT = "https://www.reddit.com/r/Showerthoughts.json";
 
 // Fisher-Yates shuffle algorithm to "shuffle" an array.
@@ -26,19 +28,15 @@ function shuffle(array) {
 
 function App() {
 
-  const [postNum, setPostNum] = React.useState(0);
+  const [postNum, setPostNum] = React.useState(-1);
   const [thoughts, setThoughts] = React.useState([]);
   const [lastThought, setLastThought] = React.useState("");
-
-  const [prevThoughts, setPrevThoughts] = React.useState([]);
-  const [prevLastThought, setPrevLastThought] = React.useState("");
   
   const [isLoading, setIsLoading] = React.useState(true);
   const [isError, setIsError] = React.useState(false)
 
   React.useEffect(() => {
     if (isLoading) {
-      setPostNum(0);
       const ENDPOINT = lastThought ? `${API_ENDPOINT}?after=${lastThought}` : API_ENDPOINT;
       console.log(ENDPOINT);
       fetch(ENDPOINT)
@@ -47,6 +45,7 @@ function App() {
           console.log(data);
           console.log(data.data.children);
           console.log(data.data.after);
+          setPostNum(0);
           setLastThought(data.data.after);
           setThoughts(shuffle(data.data.children));
           setIsLoading(false);
@@ -63,7 +62,6 @@ function App() {
     if ((postNum+1) < thoughts.length) {
       setPostNum(postNum+1);
     } else {
-      setPrevThoughts(thoughts);
       setIsLoading(true);
     }
   }
@@ -72,18 +70,23 @@ function App() {
     <div className="App">
       <div className="App-header">
         <header className="header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <Fade>
+            <img src={logo} className="App-logo" alt="logo" />
+          </Fade>
         </header>
-        {isLoading || isError ? (
-          <div className="lds-ellipsis content"><div></div><div></div><div></div><div></div></div>
-        ) : (
-          <div className="content">
-            <Card quote={thoughts[postNum].data.title} url={thoughts[postNum].data.url}></Card>
-            <div className="author">
-              <p>{`~ u/${thoughts[postNum].data.author}`}</p>
+        <Fade spy={postNum}>
+          {isLoading || isError ? (
+            <div className="lds-ellipsis content"><div></div><div></div><div></div><div></div></div>
+          ) : (
+            <div className="content">
+                <Card quote={thoughts[postNum].data.title} url={thoughts[postNum].data.url}></Card>
+              <div className="author">
+                <p>{`~ u/${thoughts[postNum].data.author}`}</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </Fade>
+        
 
         <footer className="footer">
           <Button buttonHandler={handleNextButton}></Button>

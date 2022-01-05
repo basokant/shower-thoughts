@@ -9,6 +9,14 @@
 
 .btn {
   height: 9vmin;
+  transition: transform 150ms ease;
+}
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -52,6 +60,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 150ms ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card:active {
+  transform: scale(0.95);
 }
 
 .quote {
@@ -70,7 +87,7 @@
   width: 60vw;
 }
 
-/* loader css */
+/* loader css styling from https://loading.io/css/*/
 
 .lds-ellipsis {
   display: inline-block;
