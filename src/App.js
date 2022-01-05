@@ -29,36 +29,15 @@ function App() {
   const [postNum, setPostNum] = React.useState(0);
   const [thoughts, setThoughts] = React.useState([]);
   const [lastThought, setLastThought] = React.useState("");
-  const [endOfPage, setEndOfPage] = React.useState(false);
+
+  const [prevThoughts, setPrevThoughts] = React.useState([]);
+  const [prevLastThought, setPrevLastThought] = React.useState("");
   
   const [isLoading, setIsLoading] = React.useState(true);
   const [isError, setIsError] = React.useState(false)
 
   React.useEffect(() => {
-    setIsLoading(true);
-    setPostNum(0);
-    const ENDPOINT = lastThought ? `${API_ENDPOINT}?after=${lastThought}` : API_ENDPOINT;
-    console.log(ENDPOINT);
-    fetch(ENDPOINT)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        console.log(data.data.children);
-        console.log(data.data.after);
-        setLastThought(data.data.after);
-        setThoughts(shuffle(data.data.children));
-        setIsLoading(false);
-        setEndOfPage(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setIsError(true);
-      })
-  }, []);
-
-  React.useEffect(() => {
-    if (endOfPage == true) {
-      setIsLoading(true);
+    if (isLoading) {
       setPostNum(0);
       const ENDPOINT = lastThought ? `${API_ENDPOINT}?after=${lastThought}` : API_ENDPOINT;
       console.log(ENDPOINT);
@@ -71,21 +50,21 @@ function App() {
           setLastThought(data.data.after);
           setThoughts(shuffle(data.data.children));
           setIsLoading(false);
-          setEndOfPage(false);
         })
         .catch(error => {
           console.log(error);
           setIsError(true);
         })
     }
-  }, [endOfPage]);
+  }, [isLoading]);
 
-  function handleButtonClick() {
-    console.log("button pressed");
+  function handleNextButton() {
+    console.log("next button pressed");
     if ((postNum+1) < thoughts.length) {
       setPostNum(postNum+1);
     } else {
-      setEndOfPage(true);
+      setPrevThoughts(thoughts);
+      setIsLoading(true);
     }
   }
   
@@ -97,7 +76,6 @@ function App() {
         </header>
         {isLoading || isError ? (
           <div className="lds-ellipsis content"><div></div><div></div><div></div><div></div></div>
-          // <div>Loading</div>
         ) : (
           <div className="content">
             <Card quote={thoughts[postNum].data.title} url={thoughts[postNum].data.url}></Card>
@@ -108,7 +86,7 @@ function App() {
         )}
 
         <footer className="footer">
-          <Button buttonHandler={handleButtonClick}></Button>
+          <Button buttonHandler={handleNextButton}></Button>
         </footer>
       </div>
     </div>
@@ -123,7 +101,7 @@ const Card = ({ quote, url }) => {
   )
 }
 
-const Button = ({ buttonHandler}) => {
+const Button = ({ buttonHandler }) => {
   return (
     <img onClick={buttonHandler} src={button} className="btn" alt="next"/>
   )
