@@ -1,3 +1,18 @@
+@media (min-width:200px)  { /* smartphones, iPhone, portrait 480x320 phones */ 
+  .App-header { font-size: calc(8px + 0.6vmax); }
+  .card { padding: 3vh; }
+  .card:hover { transform: scale(1.05); }
+  .card:active { transform: scale(0.95); }
+}
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+  .App-header { font-size: calc(8px + 1.5vmax); }
+  .card { padding: 5vh; }
+}
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+  .App-header { font-size: calc(8px + 1.3vmax)}
+  .card { padding: 8vh; }
+} 
+
 .App {
   text-align: center;
   background-color: #EFFDFF;
@@ -19,12 +34,6 @@
   transform: scale(0.95);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #EFFDFF;
   min-height: 100vh;
@@ -32,7 +41,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
 }
 
 .content {
@@ -41,7 +49,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60vw;
+  width: 70vw;
 }
 
 .header {
@@ -54,8 +62,7 @@
 
 .card {
   border-radius: 25px;
-  max-height: 30vh;
-  padding: 8vh;
+  max-height: 70vh;
   background-color: #D4FAFF;
   display: flex;
   align-items: center;
@@ -63,20 +70,11 @@
   transition: transform 150ms ease;
 }
 
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card:active {
-  transform: scale(0.95);
-}
-
 .quote {
   color: #236A74;
   text-decoration: none;
   font-style: italic;
-  font-weight: bold;
-  font-size: medium;
+  font-weight: bold;  
 }
 
 .author {
@@ -87,6 +85,10 @@
   justify-content: end;
   width: 60vw;
 }
+
+
+
+
 
 /* loader css styling from https://loading.io/css/*/
 
