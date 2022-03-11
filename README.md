@@ -20,6 +20,7 @@ This app does just that.
 
 - React
 - React Reveal, a lightweight simple transition animation library
+- Loading.io for the Pure CSS Loader
 
 ## What I learned
 
