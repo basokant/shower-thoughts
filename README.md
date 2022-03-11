@@ -1,3 +1,33 @@
+# Shower Thoughts
+
+_Ever found yourself struck with brilliance while bathing? An epiphany in the shower? You're not alone. You're just one of the millions who has experienced what's popularly referred to as a **Shower Thought**._
+
+**What if you could hear the wisdom that comes to people on the internet as they bathe?**
+
+This app does just that.
+
+![](public/Screen%20Shot%202022-03-10%20at%208.21.55%20PM.png)
+
+[Public Deployment](https://basokant.github.io/shower-thoughts/)
+
+## Features
+
+- Gain the special wisdom found only in the shower.
+- Click the thought to go to the Reddit post.
+- A theme that makes you feel the relaxed state of being in a shower.
+
+## Libraries
+
+- React
+- React Reveal, a lightweight simple transition animation library
+
+## What I learned
+
+- The basics of React (using functional components).
+- How to use the Reddit API.
+- JavaScript's Promise system, and how it's used to fetch data from a REST API like Reddit.
+- Many, many shower thoughts.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
